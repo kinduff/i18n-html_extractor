@@ -68,9 +68,10 @@ module I18n
 
         def extract_erb_directives!(text)
           erb_directives = {}
-
+        
           ERB_REGEXPS.each do |regexp|
             regexp.replace!(text) do |string_format, data|
+              next if data[:inner_text].strip =~ /link_to.*do$/ # skip link_to blocks
               key = SecureRandom.uuid
               erb_directives[key] = data[:inner_text]
               string_format % { inner_text: key }
