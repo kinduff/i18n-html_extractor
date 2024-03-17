@@ -35,7 +35,7 @@ module I18n
         def parse(filename, verbose: false)
           file_content = ''
           File.open(filename) do |file|
-            file.read(nil, file_content)
+            file_content = file.read
             return parse_string(file_content, verbose: verbose)
           end
         end
